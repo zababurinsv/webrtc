@@ -252,11 +252,11 @@
       let API = {}
       API['id'] = {}
       API['class'] = {}
-      // console.assert(false, itemCLASS)
       API = await parser(API, itemID, { type: 'id' })
       API = await parser(API, itemCLASS, { type: 'class' })
 
-      let path = "http://localhost:4434"
+      // let path = "http://localhost:4434"
+      let path = 'https://web3-news.herokuapp.com/'
       // let path = "https://web3-star.herokuapp.com"
       // let path = "https://web3.news"
       let sys = {

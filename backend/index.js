@@ -37,6 +37,7 @@ let connect = {
 };
 
 let whitelist = [
+  'https://zababurinsv.github.io/webrtc',
   'https://web3.news',
   'http://localhost:5968',
   'http://localhost:6897',
@@ -136,7 +137,6 @@ async function dialerRequest(req, res, id) {
 
 async function dialerSendMessage(req, res, id, message) {
   await saveDialer(res, id)
-  console.log('ssssssssssss', message)
   const data = `data: ${JSON.stringify({
     pathname: req.pathname,
     clientID: "",
