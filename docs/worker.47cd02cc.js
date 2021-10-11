@@ -8391,8 +8391,8 @@ exports.constants = {
 };
 
 },{"randombytes":"8w7G4","create-hash":"hel5c","create-hmac":"897KI","browserify-sign/algos":"krWDE","pbkdf2":"S22GI","browserify-cipher":"bHjyE","diffie-hellman":"avxdB","browserify-sign":"gNw10","create-ecdh":"i1g30","public-encrypt":"bAqmF","randomfill":"7ol2h"}],"8w7G4":[function(require,module,exports) {
-var global = arguments[3];
 var process = require("process");
+var global = arguments[3];
 'use strict';
 // limit of Crypto.getRandomValues()
 // https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues
@@ -8737,8 +8737,8 @@ exports.finished = require('./lib/internal/streams/end-of-stream.js');
 exports.pipeline = require('./lib/internal/streams/pipeline.js');
 
 },{"./lib/_stream_readable.js":"is8RM","./lib/_stream_writable.js":"5umoS","./lib/_stream_duplex.js":"4z5jL","./lib/_stream_transform.js":"bAegj","./lib/_stream_passthrough.js":"SdA6L","./lib/internal/streams/end-of-stream.js":"iEgng","./lib/internal/streams/pipeline.js":"i4S81"}],"is8RM":[function(require,module,exports) {
-var global = arguments[3];
 var process = require("process");
+var global = arguments[3];
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -13458,8 +13458,8 @@ module.exports = function(iterations, keylen) {
 };
 
 },{}],"b1ZjZ":[function(require,module,exports) {
-var process = require("process");
 var global = arguments[3];
+var process = require("process");
 var defaultEncoding;
 /* istanbul ignore next */ if (global.process && global.process.browser) defaultEncoding = 'utf-8';
 else if (global.process && global.process.version) {
@@ -31323,8 +31323,8 @@ function compare(a, b) {
 }
 
 },{"parse-asn1":"gZwyO","./mgf":"bCqz2","./xor":"2JwYX","bn.js":"3VXSG","browserify-rsa":"ioAfx","create-hash":"hel5c","./withPublic":"2np1o","safe-buffer":"7V1Cd"}],"7ol2h":[function(require,module,exports) {
-var process = require("process");
 var global = arguments[3];
+var process = require("process");
 'use strict';
 function oldBrowser() {
     throw new Error('secure random number generation not supported by this browser\nuse chrome, FireFox or Internet Explorer 11');
