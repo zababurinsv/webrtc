@@ -37,7 +37,7 @@ let connect = {
 };
 
 let whitelist = [
-  'https://zababurinsv.github.io/webrtc',
+  'https://zababurinsv.github.io',
   'https://web3.news',
   'http://localhost:5968',
   'http://localhost:6897',
