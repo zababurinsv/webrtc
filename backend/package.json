@@ -8,15 +8,18 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "npm-run-all -c kill start",
+    "dev": "npm-run-all -c kill nodemon",
     "start": "node index.js",
+    "nodemon": "nodemon index.js",
     "kill": "kill $(lsof -t -i:4434)"
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "simple-node-logger": "^21.8.12"
   },
   "devDependencies": {
+    "nodemon": "^2.0.13",
     "npm-run-all": "^4.1.5"
   }
 }

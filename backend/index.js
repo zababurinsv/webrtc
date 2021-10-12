@@ -2,9 +2,6 @@ import express from 'express'
 import cors from 'cors'
 import path from 'path'
 let __dirname = path.dirname(process.argv[1]);
-__dirname = __dirname.replace(/\/node_modules\/pm2\/lib/gi, '')
-__dirname = __dirname.replace(/\/node_modules\/.bin/gi, '')
-__dirname = __dirname.replace(/usr\/lib/ig,"home/system")
 const app = express()
 app.use(cors());
 app.use(express.json())
@@ -31,7 +28,7 @@ let connect = {
       public: false
     }
   },
-  isItetiator: false,
+  isInitiator: false,
   isDialer: false,
   isRole: false
 };
@@ -108,18 +105,21 @@ async function initiator(req, res, id, recipient) {
 
 async function dialer(req, res, id, recipient) {
   if(connect.message.offer[`${recipient}`] === undefined) {
-    console.log('sssssssssss2ssss');
     (connect.broadcast.initiator[`${id}`] === undefined)
-      ? (await terminateDialer(req), await dialerRequest(req, res, id))
-      : (await terminateDialer(req), await verifyDialer(req, res, id))
+      ? (
+          await terminateDialer(req),
+          await dialerRequest(req, res, id)
+        )
+      : (
+          await terminateDialer(req),
+          await verifyDialer(req, res, id)
+        )
   } else {
     await terminateDialer(req)
     await dialerSendMessage(req, res, id, connect.message.offer[`${recipient}`].message)
-    // console.log('fffffffffffff',connect.broadcast.initiator.length, connect.message.offer)
   }
   return false
 }
-//~~~~~~~~~~
 
 async function dialerRequest(req, res, id) {
   await saveDialer(res, id)
@@ -191,11 +191,11 @@ async function terminateDialer(req) {
     delete connect.broadcast.dialer[`${req.params.id}`]
     delete connect.message.answer[`${req.params.id}`]
     connect.broadcast.dialer = connect.broadcast.dialer.filter((client) => {
+      console.log('~~~ client ~~~', client)
     });
     console.log('terminate dialer',connect.broadcast)
   })
 }
-
 
 async function terminateInitiator(req) {
   req.on('close', () => {
@@ -207,6 +207,7 @@ async function terminateInitiator(req) {
 
 async function eventsHandler(req, res, next) {
   let origin = req.get('origin')
+  console.log('1 - eventSource connect')
   console.log('origin', origin, req.query.recipient, req.query.initiator)
   const headers = {
     'Content-Type': 'text/event-stream',
@@ -215,12 +216,15 @@ async function eventsHandler(req, res, next) {
     'Access-Control-Allow-Origin': (whitelist.some(item => item === origin )) ? origin : "xxx"
   };
   res.writeHead(200, headers);
-
   if(connect.mode.init.static) {
-    connect.isItetiator = connect.initiator(req.params.id)
+    connect.isInitiator = connect.initiator(req.params.id)
     connect.isDialer = connect.dialer(req.params.id)
-    console.log(connect.isItetiator, 'i --- d ', connect.isDialer);
-    (connect.isItetiator) ? initiator(req, res, req.params.id, req.query.recipient) : (connect.isDialer ) ? dialer(req, res,req.params.id, req.query.recipient) : console.log(`undefined connection`, req.params)
+    console.log(connect.isInitiator, 'i --- d ', connect.isDialer);
+    (connect.isInitiator)
+        ? await initiator(req, res, req.params.id, req.query.recipient)
+        : (connect.isDialer )
+            ? await dialer(req, res,req.params.id, req.query.recipient)
+            : console.log(`undefined connection`, req.params)
   } else {
     if(!connect.mode.init.public) {
       connect.isRole = (req.query.initiator)

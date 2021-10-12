@@ -255,8 +255,8 @@
       API = await parser(API, itemID, { type: 'id' })
       API = await parser(API, itemCLASS, { type: 'class' })
 
-      // let path = "http://localhost:4434"
-      let path = 'https://web3-news.herokuapp.com'
+      let path = "http://localhost:4434"
+      // let path = 'https://web3-news.herokuapp.com'
       // let path = "https://web3-star.herokuapp.com"
       // let path = "https://web3.news"
       let sys = {
@@ -580,7 +580,7 @@
             break
         }
       }
-
+      Peer.isPeer = true
       for(let item in sys.events) {
         sys.events[item].key.type = 'button'
         sys.events[item].key.addEventListener('click', (events) => {
@@ -1403,9 +1403,6 @@
             console.log('readdir: ', Peer.fs.this.readdir("./"))
             console.log('cwd: ', Peer.fs.this.cwd())
             sys.alias.fs.key.textContent = "FS connect"
-
-            console.log('sssssssssssa', Peer.ipfs.this.files)
-
             resolve({
               status: false,
               success: false
